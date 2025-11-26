@@ -1,0 +1,43 @@
+# Xcode / Apple build products & derived data
+build/
+build-*/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Xcode user state & workspace data (if project is ever tracked)
+xcuserdata/
+*.xcuserdatad
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+Icon
+Network Trash Folder
+Temporary Items
+
+# Editor & IDE artifacts
+.vscode/
+.idea/
+*.swp
+*~
+*.bak
+
+# Reference documents & brochure previews (unbranded policy)
+.brochure-preview/
+*.pdf
+reference/
+
+# NV Spin Lab session files
+*.nvlab
+AGENTS.md

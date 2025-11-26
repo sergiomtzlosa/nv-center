@@ -1,0 +1,85 @@
+name: NVSpinLab
+options:
+  bundleIdPrefix: org.nvlabs
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    CLANG_ENABLE_OBJC_ARC: YES
+    CLANG_ENABLE_MODULES: YES
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    GCC_C_LANGUAGE_STANDARD: gnu17
+    CLANG_CXX_LANGUAGE_STANDARD: c++17
+    ARCHS: "$(ARCHS_STANDARD)"
+    ONLY_ACTIVE_ARCH: NO
+    CODE_SIGN_IDENTITY: "-"
+    CODE_SIGN_STYLE: Manual
+    DEVELOPMENT_TEAM: ""
+    ENABLE_HARDENED_RUNTIME: NO
+    GCC_WARN_UNDECLARED_SELECTOR: NO
+  configs:
+    Debug:
+      GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) ACCELERATE_NEW_LAPACK=1 DEBUG=1"
+    Release:
+      GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) ACCELERATE_NEW_LAPACK=1"
+targets:
+  NVSpinLab:
+    type: application
+    platform: macOS
+    sources:
+      - path: NVSpinLab/App
+      - path: NVSpinLab/Physics
+      - path: NVSpinLab/UI
+      - path: NVSpinLab/Resources
+        excludes:
+          - Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.nvlabs.NVSpinLab
+        PRODUCT_NAME: NVSpinLab
+        INFOPLIST_FILE: NVSpinLab/Resources/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: ""
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
+    preBuildScripts:
+      - name: Branding guard (source)
+        basedOnDependencyAnalysis: false
+        script: |
+          "${SRCROOT}/scripts/check_branding.sh" source
+    postBuildScripts:
+      - name: Branding guard (bundle)
+        basedOnDependencyAnalysis: false
+        script: |
+          "${SRCROOT}/scripts/check_branding.sh" bundle "${TARGET_BUILD_DIR}/${WRAPPER_NAME}"
+    dependencies:
+      - sdk: Accelerate.framework
+      - sdk: SceneKit.framework
+      - sdk: QuartzCore.framework
+  NVSpinLabTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: NVSpinLab/Physics
+      - path: NVSpinLab/Tests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.nvlabs.NVSpinLabTests
+        GENERATE_INFOPLIST_FILE: YES
+        HEADER_SEARCH_PATHS: "$(SRCROOT)/NVSpinLab/Physics"
+    dependencies:
+      - sdk: Accelerate.framework
+      - sdk: AppKit.framework
+schemes:
+  NVSpinLab:
+    build:
+      targets:
+        NVSpinLab: all
+        NVSpinLabTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: false
+      targets:
+        - name: NVSpinLabTests

@@ -273,7 +273,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/scripts/check_branding.sh\" source\n";
+			shellScript = "/bin/bash \"${SRCROOT}/scripts/check_branding.sh\" source\n";
 		};
 		85CB323A34B62DF8B216899C /* Branding guard (bundle) */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -292,7 +292,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/scripts/check_branding.sh\" bundle \"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n";
+			shellScript = "/bin/bash \"${SRCROOT}/scripts/check_branding.sh\" bundle \"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -46,12 +46,12 @@ targets:
       - name: Branding guard (source)
         basedOnDependencyAnalysis: false
         script: |
-          "${SRCROOT}/scripts/check_branding.sh" source
+          /bin/bash "${SRCROOT}/scripts/check_branding.sh" source
     postBuildScripts:
       - name: Branding guard (bundle)
         basedOnDependencyAnalysis: false
         script: |
-          "${SRCROOT}/scripts/check_branding.sh" bundle "${TARGET_BUILD_DIR}/${WRAPPER_NAME}"
+          /bin/bash "${SRCROOT}/scripts/check_branding.sh" bundle "${TARGET_BUILD_DIR}/${WRAPPER_NAME}"
     dependencies:
       - sdk: Accelerate.framework
       - sdk: SceneKit.framework
